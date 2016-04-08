@@ -2,11 +2,15 @@
 #include <GL/glut.h>
 #include <cstdlib>
 
+using namespace std;
+
 struct Point {
   GLfloat x, y;
   Point(GLfloat x = 0, GLfloat y = 0): x(x), y(y) {}
   Point midpoint(Point p) {return Point((x + p.x) / 2.0, (y + p.y) / 2.0);}
 };
+
+int pointIteration;
 
 void display() {
   glClear(GL_COLOR_BUFFER_BIT);
@@ -14,7 +18,8 @@ void display() {
   static Point p = vertices[0];
 
   glBegin(GL_POINTS);
-  for (int k = 0; k < 100000; k++) {
+  // best pointIteration = 100000
+  for (int k = 0; k < pointIteration; k++) {
     p = p.midpoint(vertices[rand() % 3]);
     glVertex2f(p.x, p.y);
   }
@@ -25,13 +30,14 @@ void display() {
 void init() {
   glClearColor(1.0, 1.0, 1.0, 1.0);
   glColor3f(0.0, 0.0, 0.0);
-  
+
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   glOrtho(0.0, 600.0, 0.0, 500.0, 0.0, 1.0);
 }
 
 int main(int argc, char** argv) {
+  pointIteration = atoi(argv[1]);
   glutInit(&argc, argv);
   glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
   glutInitWindowSize(600, 500);
