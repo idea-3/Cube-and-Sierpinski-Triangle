@@ -18,7 +18,7 @@ void myinit() {
 	glClearColor (1.0, 1.0, 1.0,1.0);
 }
 
-void triangle( point2 a, point2 b, point2 c) {
+void triangle(point2 a, point2 b, point2 c) {
 	glBegin(GL_TRIANGLES);
 	glVertex2fv(a);
 	glVertex2fv(b);
@@ -60,7 +60,7 @@ int main(int argc, char **argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB);
 	glutInitWindowSize(600, 500);
-	glutCreateWindow("2D Gasket");
+	glutCreateWindow("Sierpinski Triangle with Triangles");
 	glutDisplayFunc(display);
 	myinit();
 	glutMainLoop();
