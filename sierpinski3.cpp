@@ -11,7 +11,7 @@ typedef GLfloat point2[2];
 
 point2 v[]={{-2.0, -2.0}, {2.0, -2.0}, {0.0, 2.0}};
 int n;
-float reds[5], greens[5], blues[5];
+float *reds, *greens, *blues;
 
 void myinit() {
 	glMatrixMode(GL_PROJECTION);
@@ -39,31 +39,24 @@ void divide_triangle(point2 a, point2 b, point2 c, int m) {
 		divide_triangle(a, v0, v1, m-1);
 		divide_triangle(c, v1, v2, m-1);
 		divide_triangle(b, v2, v0, m-1);
-		glColor3f(reds[(n-m) % 5], greens[(n-m) % 5], blues[(n-m) % 5]);
+		glColor3f(reds[m], greens[m], blues[m]);
 		triangle(v0, v1, v2);
 	}
 	else {
-		glColor3f(1, 0, 1);
+		glColor3f(reds[m], greens[m], blues[m]);
 		triangle(a,b,c);
 	}
 }
 
 void randomizeColor() {
-	reds[0] = 0;
-	greens[0] = 0;
-	blues[0] = 1;
-	reds[1] = 1;
-	greens[1] = 0;
-	blues[1] = 0;
-	reds[2] = 0;
-	greens[2] = 1;
-	blues[2] = 0;
-	reds[3] = 1;
-	greens[3] = 1;
-	blues[3] = 1;
-	reds[4] = 1;
-	greens[4] = 1;
-	blues[4] = 0;
+	reds = new float[n + 1];
+	greens = new float[n + 1];
+	blues = new float[n + 1];
+	for (int i = 0; i <= n; i++) {
+		reds[i] = (float) (rand() % 9 + 1) / 10;
+		greens[i] = (float) (rand() % 9 + 1) / 10;
+		blues[i] = (float) (rand() % 9 + 1) / 10;
+	}
 }
 
 void display(void) {
